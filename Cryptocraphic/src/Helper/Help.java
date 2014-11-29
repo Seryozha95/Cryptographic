@@ -14,6 +14,13 @@ public class Help {
 	public Help() {
 	}
 
+	/**
+	 * The function read file by line and return readed line's list
+	 * 
+	 * @param filePath
+	 *            - It's the file path which you want to read
+	 * @return - readed line's list
+	 */
 	public ArrayList<String> readFromFileByList(String filePath) {
 		BufferedReader buffer = null;
 		ArrayList<String> fileContent = new ArrayList<String>();
@@ -41,6 +48,13 @@ public class Help {
 		return fileContent;
 	}
 
+	/**
+	 * The function read file by line and return readed general string
+	 * 
+	 * @param filePath
+	 *            - It's the file path which you want to read
+	 * @return - readed general string
+	 */
 	public String readFromFileByString(String filePath) {
 		BufferedReader buffer = null;
 		String fileContent = null;
@@ -71,6 +85,16 @@ public class Help {
 		return fileContent;
 	}
 
+	/**
+	 * This function is writing list in to file. TODO optimize this function
+	 * (optimize new line mode)
+	 * 
+	 * @param filePath
+	 *            - it's the file path which you want into write
+	 * @param fileListContent
+	 *            - it's the file list content which you want to write into the
+	 *            file
+	 */
 	public void writeInToFile(String filePath, ArrayList<String> fileListContent) {
 		try {
 			File file = new File(filePath);
@@ -98,6 +122,14 @@ public class Help {
 		}
 	}
 
+	/**
+	 * This function is writing in to file.
+	 * 
+	 * @param filePath
+	 *            - it's the file path which you want into write
+	 * @param fileContent
+	 *            - it's the file content which you want to write into the file
+	 */
 	public void writeInToFile(String filePath, String fileContent) {
 		try {
 			File file = new File(filePath);
@@ -115,6 +147,12 @@ public class Help {
 		}
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @param content
+	 * @return
+	 */
 	public String stringToBinary(String content) {
 		byte[] infoBin = null;
 		String bunaryCode = null;
@@ -138,6 +176,12 @@ public class Help {
 		return bunaryCode;
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @param content
+	 * @return
+	 */
 	public ArrayList<String> stringToBinary(ArrayList<String> content) {
 		byte[] infoBin = null;
 		ArrayList<String> binaryList = new ArrayList<String>();
