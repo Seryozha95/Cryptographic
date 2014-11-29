@@ -12,8 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Help obj = new Help();
-		obj.readFromFile(readFilePath);
-		obj.writeInToFile(writeFilePath, fileCcontent);
-		obj.stringToBinary(fileCcontent);
+		obj.writeInToFile(writeFilePath,
+				obj.stringToBinary(obj.readFromFileByList(readFilePath)));
 	}
 }
