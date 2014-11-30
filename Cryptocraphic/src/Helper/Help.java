@@ -22,28 +22,8 @@ public class Help {
 	 * @return - readed line's list
 	 */
 	public ArrayList<String> readFromFileByList(String filePath) {
-		BufferedReader buffer = null;
 		ArrayList<String> fileContent = new ArrayList<String>();
-		try {
-			String currentLine;
-			File file = new File(filePath);
-			buffer = new BufferedReader(new FileReader(filePath));
-			for (int i = 0; i < file.length(); i++) {
-				while ((currentLine = buffer.readLine()) != null) {
-					fileContent.add(currentLine);
-				}
-			}
-		} catch (IOException e) {
-			System.out.println("ERROR:" + filePath
-					+ "- No such file or directory");
-		} finally {
-			try {
-				if (buffer != null)
-					buffer.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
+		fileContent.add(readFromFileByString(filePath));
 		return fileContent;
 	}
 
@@ -168,18 +148,13 @@ public class Help {
 	 * @return
 	 */
 	public ArrayList<String> stringToBinary(ArrayList<String> content) {
-		byte[] infoBin = null;
 		ArrayList<String> binaryList = new ArrayList<String>();
 		Iterator<String> iterator = content.iterator();
 		while (iterator.hasNext()) {
-			try {
-				infoBin = iterator.next().getBytes("UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				System.out.println("ERROR: Culd not converting the list");
-			}
-			for (byte b : infoBin) {
-				String a = Integer.toBinaryString(b);
-				binaryList.add(a);
+			ArrayList<String> subBinary = subText(iterator.next());
+			Iterator<String> binaryiterator = subBinary.iterator();
+			while (binaryiterator.hasNext()) {
+				binaryList.add(stringToBinary(binaryiterator.next()));
 			}
 		}
 		return binaryList;
@@ -192,20 +167,13 @@ public class Help {
 	 * @return
 	 */
 	public ArrayList<String> hexToBinByList(String hex) {
-		ArrayList<String> hexList = new ArrayList<String>();
-		String binFragment = "";
-		int iHex;
-		hex = hex.trim();
-		hex = hex.replaceFirst("0x", "");
-		for (int i = 0; i < hex.length(); i++) {
-			iHex = Integer.parseInt("" + hex.charAt(i), 16);
-			binFragment = Integer.toBinaryString(iHex);
-			while (binFragment.length() < 4) {
-				binFragment = "0" + binFragment;
-			}
-			hexList.add(binFragment);
+		ArrayList<String> hexList = subText(hex);
+		ArrayList<String> binaryList = new ArrayList<String>();
+		Iterator<String> hexListIterator = hexList.iterator();
+		while (hexListIterator.hasNext()) {
+			binaryList.add(hexToBinByString(hexListIterator.next()));
 		}
-		return hexList;
+		return binaryList;
 	}
 
 	/**
@@ -240,20 +208,14 @@ public class Help {
 	}
 
 	public String logicSumma(int booleanValue1, int booleanValue2) {
-		String summa = null;
-		if ((booleanValue1 == 1 && booleanValue2 == 1)
-				|| (booleanValue1 == 0 && booleanValue2 == 0)) {
-			summa = "0";
-		} else {
-			summa = "1";
-		}
-		return summa;
+		return Integer.toBinaryString(booleanValue1 ^ booleanValue2);
+
 	}
 
 	public ArrayList<String> logicSummaByList(ArrayList<String> bynaryCodeList,
 			String key) {
-		ArrayList<String> keySubList = subText(key);
 		ArrayList<String> logicNegativeList = new ArrayList<String>();
+		ArrayList<String> keySubList = subText(key);
 		Iterator<String> iterator = bynaryCodeList.iterator();
 		while (iterator.hasNext()) {
 			String buffer = "";
