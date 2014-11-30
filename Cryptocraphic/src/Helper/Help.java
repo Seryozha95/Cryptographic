@@ -31,7 +31,6 @@ public class Help {
 			for (int i = 0; i < file.length(); i++) {
 				while ((currentLine = buffer.readLine()) != null) {
 					fileContent.add(currentLine);
-					System.out.println(currentLine);
 				}
 			}
 		} catch (IOException e) {
@@ -57,18 +56,12 @@ public class Help {
 	 */
 	public String readFromFileByString(String filePath) {
 		BufferedReader buffer = null;
-		String fileContent = null;
+		String fileContent = "";
 		try {
 			String currentLine;
 			buffer = new BufferedReader(new FileReader(filePath));
-			boolean contentValue = true;
 			while ((currentLine = buffer.readLine()) != null) {
-				if (contentValue) {
-					fileContent = currentLine;
-					contentValue = false;
-				} else {
-					fileContent += currentLine;
-				}
+				fileContent += currentLine;
 			}
 		} catch (IOException e) {
 			System.out.println("ERROR:" + filePath
@@ -81,7 +74,6 @@ public class Help {
 				ex.printStackTrace();
 			}
 		}
-		System.out.println("fileContent  " + fileContent);
 		return fileContent;
 	}
 
@@ -155,23 +147,16 @@ public class Help {
 	 */
 	public String stringToBinary(String content) {
 		byte[] infoBin = null;
-		String bunaryCode = null;
+		String bunaryCode = "";
 		try {
 			infoBin = content.getBytes("UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("ERROR: Can not convert string");
 			e.printStackTrace();
 		}
-		boolean contentValue = true;
 		for (byte b : infoBin) {
 			String a = Integer.toBinaryString(b);
-
-			if (contentValue) {
-				bunaryCode = a;
-				contentValue = false;
-			} else {
-				bunaryCode += a;
-			}
+			bunaryCode += a;
 		}
 		return bunaryCode;
 	}
@@ -198,5 +183,90 @@ public class Help {
 			}
 		}
 		return binaryList;
+	}
+
+	/**
+	 * TODO
+	 * 
+	 * @param hex
+	 * @return
+	 */
+	public ArrayList<String> hexToBinByList(String hex) {
+		ArrayList<String> hexList = new ArrayList<String>();
+		String binFragment = "";
+		int iHex;
+		hex = hex.trim();
+		hex = hex.replaceFirst("0x", "");
+		for (int i = 0; i < hex.length(); i++) {
+			iHex = Integer.parseInt("" + hex.charAt(i), 16);
+			binFragment = Integer.toBinaryString(iHex);
+			while (binFragment.length() < 4) {
+				binFragment = "0" + binFragment;
+			}
+			hexList.add(binFragment);
+		}
+		return hexList;
+	}
+
+	/**
+	 * TODO
+	 * 
+	 * @param hex
+	 * @return
+	 */
+	public String hexToBinByString(String hex) {
+		String bin = "";
+		String binFragment = "";
+		int iHex;
+		hex = hex.trim();
+		hex = hex.replaceFirst("0x", "");
+		for (int i = 0; i < hex.length(); i++) {
+			iHex = Integer.parseInt("" + hex.charAt(i), 16);
+			binFragment = Integer.toBinaryString(iHex);
+			while (binFragment.length() < 4) {
+				binFragment = "0" + binFragment;
+			}
+			bin += binFragment;
+		}
+		return bin;
+	}
+
+	public ArrayList<String> subText(String text) {
+		ArrayList<String> subTextList = new ArrayList<String>();
+		for (int i = 0; i < text.length(); i++) {
+			subTextList.add(text.substring(i, i + 1));
+		}
+		return subTextList;
+	}
+
+	public String logicSumma(int booleanValue1, int booleanValue2) {
+		String summa = null;
+		if ((booleanValue1 == 1 && booleanValue2 == 1)
+				|| (booleanValue1 == 0 && booleanValue2 == 0)) {
+			summa = "0";
+		} else {
+			summa = "1";
+		}
+		return summa;
+	}
+
+	public ArrayList<String> logicSummaByList(ArrayList<String> bynaryCodeList,
+			String key) {
+		ArrayList<String> keySubList = subText(key);
+		ArrayList<String> logicNegativeList = new ArrayList<String>();
+		Iterator<String> iterator = bynaryCodeList.iterator();
+		while (iterator.hasNext()) {
+			String buffer = "";
+			ArrayList<String> textSubList = subText(iterator.next());
+			Iterator<String> textIterator = textSubList.iterator();
+			Iterator<String> keyIterator = keySubList.iterator();
+			while (textIterator.hasNext()) {
+				int subText = Integer.parseInt(textIterator.next());
+				int subKey = Integer.parseInt(keyIterator.next());
+				buffer += logicSumma(subText, subKey);
+			}
+			logicNegativeList.add(buffer);
+		}
+		return logicNegativeList;
 	}
 }
