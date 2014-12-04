@@ -132,7 +132,6 @@ public class Help {
 			infoBin = content.getBytes("UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("ERROR: Can not convert string");
-			e.printStackTrace();
 		}
 		for (byte b : infoBin) {
 			String a = Integer.toBinaryString(b);
@@ -209,7 +208,6 @@ public class Help {
 
 	public String logicSumma(int booleanValue1, int booleanValue2) {
 		return Integer.toBinaryString(booleanValue1 ^ booleanValue2);
-
 	}
 
 	public ArrayList<String> logicSummaByList(ArrayList<String> bynaryCodeList,
@@ -229,6 +227,19 @@ public class Help {
 			}
 			logicNegativeList.add(buffer);
 		}
+		System.out.println("aaaaa" + logicNegativeList);
 		return logicNegativeList;
+	}
+
+	public void tmp(String binaryCode) {
+		String bbbb = binaryCode.substring(1, 4);
+		bbbb += binaryCode.substring(0, 1);
+		// TODO
+		// System.out.println("shrjvacccc   " + bbbb);
+		// int bbb = 0010;
+		// int a = 0b0 + bbb;
+		// a=a>>1;
+		// System.out.println("verjnakjab = " + (a));
+
 	}
 }
